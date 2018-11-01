@@ -1,0 +1,10 @@
+#other
+*.pyc
+*.idea
+__pycache__
+.project
+
+#db
+#work_manage/workbench/migrations/*
+#work_mange/rbac/migrations/*
+#work_manage/users/migrations/*
