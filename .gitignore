@@ -5,6 +5,6 @@ __pycache__
 .project
 
 #db
-#work_manage/workbench/migrations/*
-#work_mange/rbac/migrations/*
-#work_manage/users/migrations/*
+work_manage/workbench/migrations/*
+work_mange/rbac/migrations/*
+work_manage/users/migrations/*
