@@ -2,13 +2,14 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="/" style="padding: 10px">
-        <img alt="Watone" src="/static/img/logo-sm.png">
+        <img alt="Watone" src="/static/media/img/logo-sm.png">
       </a>
       <a href="/" class="navbar-brand">华通云数据 </a>
     </div>
     <nav id="bs-navbar" class="collapse navbar-collapse">
+      {% url 'workbench:index'  as workbench_index %}
       <ul class="nav navbar-nav">
-        <li>
+        <li {% if request.path == workbench_index %}class="active"{% endif %}>
           <a href="{% url 'workbench:index' %}">workbench</a>
         </li>
         <li>

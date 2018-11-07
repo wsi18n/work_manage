@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 import workbench
 urlpatterns = [
-    path('', include('workbench.urls')),
+    path('', admin.site.urls),
     path('admin/', admin.site.urls),
     path('workbench/', include('workbench.urls')),
 

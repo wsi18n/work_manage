@@ -8,26 +8,21 @@
 
         {% block CSS %}
 		<link href="/static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/static/CSS/left_bar.css" rel="stylesheet">
+		<link href="/static/dist/CSS/left_bar.css" rel="stylesheet">
 		<style>
 			.navbar{
 				margin-bottom:0
 			}
-
-			.container{
-				border: 1px solid;
-				min-width: 750px;
-			}
-			@media (max-width: 1241px){
+			@media (max-width: 1191px){
 				#right-container .container {
 					width: 750px;
 			}}
 
-			@media (min-width: 1242px){
+			@media (min-width: 1192px){
 				#right-container .container {
 					width: 970px;
 			}}
-			@media (min-width: 1450px){
+			@media (min-width: 1400px){
 				#right-container .container {
 					width: 1170px;
 			}}
@@ -41,9 +36,9 @@
 
 			#right-container{
 				float: left;
-				width:-webkit-calc(100% - 250px);
-				width:-moz-calc(100% - 250px);
-				width:calc(100% - 250px);
+				width:-webkit-calc(100% - 200px);
+				width:-moz-calc(100% - 200px);
+				width:calc(100% - 200px);
 				padding-top:15px;
 			}
 
@@ -66,7 +61,7 @@
 	{% block JS %}
 		<script type="text/javascript" src="/static/lib/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="/static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/static/JS/left_bar.js"></script>
+		<script type="text/javascript" src="/static/dist/JS/left_bar.js"></script>
 	{% endblock %}
 </html>
 {% comment %}

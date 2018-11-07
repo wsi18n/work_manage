@@ -1,5 +1,5 @@
 #left-bar {
-    width: 250px;
+    width: 200px;
     height: -webkit-calc(100vh - 51px);
     height: -moz-calc(100vh - 51px);
     height: calc(100vh - 51px);
@@ -16,7 +16,7 @@
     color: #DDD;
 }
 #left-bar .list-group-item:after{
-    content: '>';
+    content: '+';
     position: absolute;
     right: 15px;
     top: 10px;
@@ -26,16 +26,19 @@
     background-color: #222;
     color: #FFF;
     border-color: #222;
+    border-left: 3px solid #C52 ;
 
 }
 #left-bar .list-group-item.active:after {
-    transform: rotate(90deg);
+    transform: rotate(45deg);
 }
 
-#left-bar .list-group-item.active:hover, #left-bar .list-group-item:hover {
+ #left-bar .list-group-item:hover {
     background-color: #222;
     color: #FFF;
     border-color: #222;
+    border-left: 3px solid #C52 ;
+
 }
 
 #left-bar .sub-list {

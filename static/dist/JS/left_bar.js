@@ -13,3 +13,6 @@ $('.list-group-item').on('click', function () {
         $(this).next('.sub-list').slideDown(250);
     }
 })
+$sub_lists = $('.list-group-item.active').parents('li.sub-list');
+$sub_lists.show()
+$sub_lists.prev('li').addClass('active');
