@@ -13,5 +13,4 @@ work_manage/local_settings.py
 work_manage/__init__
 
 #bootstrap
-static/users/*
 static/rbac/*
