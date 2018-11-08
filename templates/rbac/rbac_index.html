@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta http-equiv="content-type" content="text/html" ;charset=utf-8/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" tpye="text/css" href="{% static 'rbac/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" tpye="text/css" href="{% static 'rbac/bootstrap-3.3.7-dist/css/bootstrap-theme.css' %}">
+
+    <title>华通系统运维部</title>
+</head>
+<body>
+<div  >
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">华通系统运维部</a></li>
+        <li role="presentation"><a href="#">工作台</a></li>
+        <li role="presentation"><a href="#">系统</a></li>
+    <div style="float: right" >
+        <ul class="nav nav-pills">
+            <!-- 写if判断用户是否登陆展示不同的页面 -->
+        <li role="presentation" style="background-color: #7a43b6"><a href="#">用户名</a></li>
+        <li role="presentation"><a href="#">个人中心</a></li>
+        <li role="presentation"><a href="#">退出</a></li>
+    </ul>
+    </div>
+
+    </ul>
+
+    <div style="clear: both" ></div>
+</div>
+<aside class="main-sidebar">
+    <section class="sidebar">
+<div style="width: 130px;float: left;"  >
+    <ul class="nav nav-pills nav-stacked">
+
+        <li role="presentation"><a href="#">自动</a></li>
+        <li role="presentation"><a href="#">生成</a></li>
+    </ul>
+</div>
+<div style="clear: both" ></div>
+    </section>
+</aside>
+{% block content %}
+    <div>231312</div>
+{% endblock %}
+
+
+{% block JS %}
+		<script type="text/javascript" src="{% static 'rbac/bootstrap-3.3.7-dist/scripts/jquery-1.4.1.min.js'%}"></script>
+		<script type="text/javascript" src="{% static 'rbac/bootstrap-3.3.7-dist/scripts/jquery-ui-1.7.2.custom.min.js'%}"></script>
+		<script type="text/javascript" src="{% static 'rbac/bootstrap-3.3.7-dist/scripts/jquery.tabs.setup.js'%}"></script>
+{% endblock %}
+</body>
+</html>

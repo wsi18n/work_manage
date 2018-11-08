@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-import workbench
-urlpatterns = [
-    path('', admin.site.urls),
-    path('admin/', admin.site.urls),
-    path('workbench/', include('workbench.urls')),
+from users import views as users
+from rbac import views as rbacview
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('login/',users.LoginView.as_view(),name='login'),
+    path('logout/',users.LogoutView.as_view(),name='logout'),
+    path('',rbacview.index),
+    path('system/',include('rbac.urls',namespace='rbac')),
 ]

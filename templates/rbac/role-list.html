@@ -1,0 +1,92 @@
+{% extends "layout/base-left.html" %}
+{% load staticfiles %}
+
+{% block title %}角色管理{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/plugins/datatables/jquery.dataTables.min.css' %}">
+<link rel="stylesheet" href="{% static 'users/js/plugins/layer/skin/layer.css' %}">
+<!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header margin-bottom">
+  <ol class="breadcrumb">
+    <li><a href=""><i class="fa fa-dashboard"></i>办公平台</a></li>
+    <li class="active"><a href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.title }}</a></li>
+    <li class="active"><a href="{{ menu.url }}">{{ menu.title }}</a></li>
+  </ol>
+</section>
+    <!-- Main content -->
+  <section class="content">
+     <div id="devlist">
+        <div class="box box-primary" id="liebiao">
+            <div class="box-header">
+                <div class="btn-group pull-left">
+                    <a href="{% url 'rbac:role-list' %}" ><button type="button" id="btnRefresh" class="btn btn-default">
+                        <i class="glyphicon glyphicon-repeat"></i>刷新
+                    </button></a>
+                </div>
+                <div class="btn-group pull-left">&nbsp</div>
+                <div class="btn-group pull-left">
+                    <a href="{% url 'rbac:role-add' %}" ><button type="button" id="btnCreate" class="btn btn-default">
+                        <i class="glyphicon glyphicon-plus"></i>新增
+                    </button></a>
+
+                </div>
+                <div class="btn-group pull-left">&nbsp</div>
+                <div class="btn-group pull-left">
+                    <button type="button" id="btnDelete" class="btn btn-default">
+                        <i class="glyphicon glyphicon-trash"></i>删除
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="dtbList" class="display" cellspacing="0" width="100%">
+                    <thead>
+                    <tr valign="middle">
+                        <th><input type="checkbox" id="checkAll"></th>
+                        <th>ID</th>
+                        <th>名称</th>
+
+                    </tr>
+
+                    {% for item in role %}
+                        <tr valign="middle">
+                        <th><input type="checkbox" id="checkAll"></th>
+                        <th>{{ item.id }}</th>
+                        <th>{{ item.name }}</th>
+
+                    </tr>
+
+                    {% endfor %}
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <br> <br>
+            </div>
+        </div>
+     </div>
+  </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{% static 'users/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'users/plugins/datatables/dataTables.const.js' %}"></script>
+  <script src="{% static 'users/js/plugins/layer/layer.js' %}"></script>
+  <!-- iCheck 1.0.1 -->
+  <script type="text/javascript">
+
+
+  </script>
+
+    <script type="text/javascript">
+
+
+    </script>
+{% endblock %}

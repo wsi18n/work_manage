@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'workbench'
+    'users',
+    'rbac',
+    'workbench',
+    #'',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'rbac.middleware.rbacmiddleware.RbacMiddleWare',  # 注册rbac中自己写的中间件
+    'rbac.middleware.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'work_manage.urls'
@@ -55,9 +60,7 @@ ROOT_URLCONF = 'work_manage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
-        ],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -124,4 +127,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+AUTH_USER_MODEL = 'users.UserProfile'
+
+import re
+# 权限控制URL白名单
+SAFE_URL = [r'^/$',
+            '/login/',
+            '/logout',
+            '/admin/',
+            ]
+
+
+
 from .local_settings import *

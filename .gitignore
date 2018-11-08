@@ -3,14 +3,15 @@
 *.idea
 __pycache__
 .project
+.venv
 
 #db
 workbench/migrations/*
 rbac/migrations/*
 users/migrations/*
-
-#virtualenv
-.venv
-
-# local settings
 work_manage/local_settings.py
+work_manage/__init__
+
+#bootstrap
+static/users/*
+static/rbac/*
