@@ -32,7 +32,7 @@ def index(request):
                 permission_url_list = str(item['url'])
                 permission_list.append(permission_url_list)
         request.session['permission_url_list'] = permission_list
-        print(permission_list)
+
         top_menu = models.Menu.objects.filter(parent__isnull=True).values('name','url')
         role_list = []
         for item in role_obj:
@@ -129,6 +129,6 @@ class RoleAdd(LoginRequiredMixin, View):
         })
 
     def post(self,request):
-        print(request.POST['checked'])
+        
 
         return HttpResponse('ok')
