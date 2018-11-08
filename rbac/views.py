@@ -129,6 +129,11 @@ class RoleAdd(LoginRequiredMixin, View):
         })
 
     def post(self,request):
-        
-
+        if  not request.POST.getlist('checked'):
+            role_obj = models.Role.objects.create(name=request.POST['name'])
+            role_obj.save()
+        else:
+            role_obj = models.Role(name=request.POST['name'])
+            role_obj.save()
+            role_obj2 = models.Role.objects.get(name=request.POST['name']).permission.set(request.POST.getlist('checked'))
         return HttpResponse('ok')
