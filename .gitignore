@@ -14,3 +14,6 @@ work_manage/__init__
 
 #bootstrap
 static/rbac/*
+
+work_manage/__pycache__
+rbac/__pycache__

@@ -36,31 +36,35 @@
 
                 </div>
                 <div class="btn-group pull-left">&nbsp</div>
-                <div class="btn-group pull-left">
-                    <button type="button" id="btnDelete" class="btn btn-default">
-                        <i class="glyphicon glyphicon-trash"></i>删除
-                    </button>
-                </div>
+
             </div>
             <div class="box-body">
                 <table id="dtbList" class="display" cellspacing="0" width="100%">
                     <thead>
                     <tr valign="middle">
-                        <th><input type="checkbox" id="checkAll"></th>
+                        <th></th>
                         <th>ID</th>
                         <th>名称</th>
 
                     </tr>
-
+                    <form  action="" method="post" >
+                    {% csrf_token %}
                     {% for item in role %}
                         <tr valign="middle">
-                        <th><input type="checkbox" id="checkAll"></th>
+                        <th><input type="text" name="role_delete"  value="{{ item.id }}" style="display: none" ></th>
                         <th>{{ item.id }}</th>
                         <th>{{ item.name }}</th>
-
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><input type="button" id="role2user" name="role2user" value="角色绑定用户" ></th>
+                        <th><input type="submit" value="删除" ></th>
                     </tr>
-
                     {% endfor %}
+                    </form>
                     </thead>
                     <tbody>
                     </tbody>

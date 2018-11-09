@@ -17,7 +17,7 @@ class Menu(models.Model):
 
 class Role(models.Model):
     name = models.CharField(max_length=20, verbose_name='角色名称')
-    permission = models.ManyToManyField(Menu, verbose_name='权限',blank=True,null=True)
+    permission = models.ManyToManyField(Menu, verbose_name='权限',blank=True)
 
     class Meta:
         verbose_name = '角色'

@@ -117,6 +117,12 @@ class RoleView(LoginRequiredMixin, View):
         else:
             return render(request, 'layout/page404.html')
 
+    def post(self,request):
+        #角色删除
+        role_obj = models.Role.objects.get(id=request.POST['role_delete']).delete()
+        return HttpResponse('ok')
+
+
 class RoleAdd(LoginRequiredMixin, View):
 
     def get(self, request):
