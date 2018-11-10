@@ -1,11 +1,11 @@
-{% extends 'layout/base-layer.html' %}
+{% extends 'layout/layout.html' %}
 {% load staticfiles %}
-
-{% block main %}
 
 {% block title %}
     角色增加
 {% endblock %}
+{% block content %}
+
 <div class="box box-danger">
 	<form class="form-horizontal" id="addForm" method="post">
 		{% csrf_token %}
@@ -53,7 +53,8 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block JS %}
+{{ block.super }}
 <script src="{% static 'users/plugins/combo-select/jquery.combo.select.js' %}"></script>
 <script src="{% static 'users/bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
 

@@ -1,18 +1,23 @@
-{% extends "layout/base-left.html" %}
+{% extends "layout/layout.html" %}
 {% load staticfiles %}
 
-{% block css %}
+{% block CSS %}
+{{ block.super }}
+
 <link rel="stylesheet" href="{% static 'users/plugins/datatables/jquery.dataTables.min.css' %}">
 <link rel="stylesheet" href="{% static 'users/js/plugins/layer/skin/layer.css' %}">
 <!-- iCheck for checkboxes and radio inputs -->
 {% endblock %}
+
+{% block title %}菜单管理{% endblock %}
+
 
 {% block content %}
 
 <!-- Content Header (Page header) -->
 <section class="content-header margin-bottom">
   <ol class="breadcrumb">
-    <li><a href=""><i class="fa fa-dashboard"></i>办公平台</a></li>
+    <li><a href=""><i class="fa fa-dashboard"></i>菜单管理</a></li>
     <li class="active"><a href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.name }}</a></li>
     <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
   </ol>
@@ -84,7 +89,9 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block JS %}
+{{ block.super }}
+
   <script src="{% static 'users/plugins/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'users/plugins/datatables/dataTables.const.js' %}"></script>
   <script src="{% static 'users/js/plugins/layer/layer.js' %}"></script>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from django.contrib.auth.decorators import login_required
 from . import models
 from users.models import UserProfile
@@ -14,6 +14,16 @@ class LoginRequiredMixin(object):
         return login_required(view, login_url='/login/')
 
 
+def _render(request, template, context= {}):
+    context.update(
+        {'menu': {
+            '权限管理':{
+                '菜单管理': reverse('rbac:menu-list'),
+                '角色管理':reverse('rbac:role-list'),
+            },
+        }}
+    )
+    return render(request, template, context)
 
 @login_required(login_url='/login/')
 def index(request):
@@ -39,7 +49,7 @@ def index(request):
             role_list.append(str(item))
         if '管理员' in role_list:
             bool_status = True
-    return render(request, 'rbac/system_index.html',{
+    return _render(request, 'index.html',{
         'top_menu':top_menu,
         'status':bool_status,
     })
@@ -58,12 +68,12 @@ class MenuView(LoginRequiredMixin, View):
             role_list.append(str(item))
         if request.user.is_authenticated and  '管理员' in role_list:
             top_menu = models.Menu.objects.filter(parent__isnull=True).values('name', 'url')
-            return render(request, 'rbac/menu-list.html', {
+            return _render(request, 'rbac/menu-list.html', {
                 'menu_list':menu,
                 'top_menu': top_menu,
             })
         else:
-            return render(request,'layout/page404.html')
+            return _render(request,'page403.html')
 
     def post(self, request):
         #菜单删除
@@ -79,7 +89,7 @@ class MenuAdd(LoginRequiredMixin, View):
         for item in menu_obj:
             menu_list.append(item)
 
-        return render(request, 'rbac/menu_detail.html',{
+        return _render(request, 'rbac/menu_detail.html',{
             'menu_list':menu_list,
         })
 
@@ -110,12 +120,12 @@ class RoleView(LoginRequiredMixin, View):
             role_list.append(str(item))
         if request.user.is_authenticated and '管理员' in role_list:
             top_menu = models.Menu.objects.filter(parent__isnull=True).values('name', 'url')
-            return render(request, 'rbac/role-list.html', {
+            return _render(request, 'rbac/role-list.html', {
                 'role': role,
                 'top_menu': top_menu,
             })
         else:
-            return render(request, 'layout/page404.html')
+            return _render(request, 'page403.html')
 
     def post(self,request):
         #角色删除
@@ -130,7 +140,7 @@ class RoleAdd(LoginRequiredMixin, View):
         menu_list = []
         for item in menu_obj:
             menu_list.append(item)
-        return render(request,'rbac/role_detail.html',{
+        return _render(request,'rbac/role_detail.html',{
             'menu_list':menu_list,
         })
 

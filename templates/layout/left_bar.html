@@ -1,0 +1,21 @@
+<div id="left-bar">
+    <ul class="list-group">
+        {% for k,v in menu.items %}
+            {% if v.items %}
+            <li class="list-group-item">{{ k }}</li>
+            <li class="sub-list" style="display: none">
+                <ul class="list-group ">
+                    {% for k,v in v.items %}
+                    <li class="list-group-item {% if request.path == v %}active{% endif %}" href="{{ v }}">{{ k }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% else %}
+
+            <li class="list-group-item {% if request.path == v %}active{% endif %}" href="{{ v }}">{{ k }}</li>
+            {% endif %}
+        {% endfor %}
+        
+    </ul>
+
+</div>

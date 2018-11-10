@@ -1,0 +1,25 @@
+@media (max-width: 1191px) {
+    #right-container .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 1192px) {
+    #right-container .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1400px) {
+    #right-container .container {
+        width: 1170px;
+    }
+}
+
+#right-container {
+    float: left;
+    width: -webkit-calc(100% - 200px);
+    width: -moz-calc(100% - 200px);
+    width: calc(100% - 200px);
+    padding-top: 15px;
+}

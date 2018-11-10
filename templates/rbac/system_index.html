@@ -1,4 +1,4 @@
-{% extends "layout/base-left.html" %}
+{% extends "layout/layout.html" %}
 {% load staticfiles %}
 
 {% block title %}{% endblock %}
@@ -10,7 +10,7 @@
       <h1>
         系统
       </h1>
-      <ol class="breadcrumb">
+      <ol class="hide">
         <li><a href="#"><i class="fa fa-dashboard"></i> 办公平台</a></li>
 
       </ol>
@@ -49,7 +49,8 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block JS %}
+{{ block.super }}
   <script type="text/javascript">
 	$(function() {
 		$('#index').addClass('active');
