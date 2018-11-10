@@ -11,7 +11,7 @@ class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls, **init_kwargs):
         view = super(LoginRequiredMixin, cls).as_view(**init_kwargs)
-        return login_required(view)
+        return login_required(view, login_url='/login/')
 
 
 
@@ -21,7 +21,7 @@ def index(request):
         bool_status = False   #权限管理页面是否展示
         user_name = request.user.username
         # 获取user对应的角色列表
-        role_obj = UserProfile.objects.get(name=user_name).roles.all()
+        role_obj = UserProfile.objects.get(username=user_name).roles.all()
         #role_list = []
         permission_list = []#权限url列表
 
@@ -51,7 +51,7 @@ class MenuView(LoginRequiredMixin, View):
     """
     def get(self, request):
         #url_now=request.path_info
-        role_obj = UserProfile.objects.get(name = request.user.username).roles.all()
+        role_obj = UserProfile.objects.get(username = request.user.username).roles.all()
         menu = models.Menu.objects.all()
         role_list = []
         for item in role_obj:
@@ -103,7 +103,7 @@ class RoleView(LoginRequiredMixin, View):
     角色管理
     """
     def get(self, request):
-        role_obj = UserProfile.objects.get(name=request.user.username).roles.all()
+        role_obj = UserProfile.objects.get(username=request.user.username).roles.all()
         role = models.Role.objects.all()
         role_list = []
         for item in role_obj:

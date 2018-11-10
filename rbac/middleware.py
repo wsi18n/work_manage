@@ -11,6 +11,8 @@ class RbacMiddleware(MiddlewareMixin):
     def process_request(self, request):
             request_url = request.path_info
             permission_url = request.session.get('permission_url_list')
+            if request.user.is_superuser:
+                return None
             for url in settings.SAFE_URL:
                 if re.match(url, request_url):
                     return None
