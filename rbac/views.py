@@ -14,13 +14,16 @@ class LoginRequiredMixin(object):
         return login_required(view, login_url='/login/')
 
 
-def _render(request, template, context= {}):
-    context.update(
-        {'menu': {
-            '权限管理':{
+def _render(request, template, context={}):
+    context.update({
+        'top_menu': models.Menu.objects.filter(parent__isnull=True).values('name', 'url'),
+        'left_menu': {
+            '平台设置':"#",
+            '权限管理': {
                 '菜单管理': reverse('rbac:menu-list'),
-                '角色管理':reverse('rbac:role-list'),
+                '角色管理': reverse('rbac:role-list'),
             },
+            '账号管理':"#"
         }}
     )
     return render(request, template, context)
@@ -43,14 +46,12 @@ def index(request):
                 permission_list.append(permission_url_list)
         request.session['permission_url_list'] = permission_list
 
-        top_menu = models.Menu.objects.filter(parent__isnull=True).values('name','url')
         role_list = []
         for item in role_obj:
             role_list.append(str(item))
         if '管理员' in role_list:
             bool_status = True
     return _render(request, 'index.html',{
-        'top_menu':top_menu,
         'status':bool_status,
     })
 
@@ -67,10 +68,8 @@ class MenuView(LoginRequiredMixin, View):
         for item in role_obj:
             role_list.append(str(item))
         if request.user.is_authenticated and  '管理员' in role_list:
-            top_menu = models.Menu.objects.filter(parent__isnull=True).values('name', 'url')
             return _render(request, 'rbac/menu-list.html', {
                 'menu_list':menu,
-                'top_menu': top_menu,
             })
         else:
             return _render(request,'page403.html')
@@ -119,10 +118,8 @@ class RoleView(LoginRequiredMixin, View):
         for item in role_obj:
             role_list.append(str(item))
         if request.user.is_authenticated and '管理员' in role_list:
-            top_menu = models.Menu.objects.filter(parent__isnull=True).values('name', 'url')
             return _render(request, 'rbac/role-list.html', {
                 'role': role,
-                'top_menu': top_menu,
             })
         else:
             return _render(request, 'page403.html')

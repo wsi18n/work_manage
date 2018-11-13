@@ -1,66 +1,57 @@
 {% extends 'layout/layout.html' %}
 {% load staticfiles %}
 
-{% block title %}
-    角色增加
-{% endblock %}
+{% block title %}角色增加{% endblock %}
 {% block content %}
 
 <div class="box box-danger">
-	<form class="form-horizontal" id="addForm" method="post">
-		{% csrf_token %}
-		<input type="hidden" name='id' value="{{ role.id }}" />
-		<div class="box-body">
-          <fieldset>
-            <legend>
-              <h4>角色信息</h4>
-            </legend>
-            <div class="form-group has-feedback">
-                <label class="col-sm-2 control-label">名称</label>
-                <div class="col-sm-8">
-                    <input class="form-control" name="name" type="text" />
+    <form class="form-horizontal" id="addForm" method="post">
+        {% csrf_token %}
+        <input type="hidden" name='id' value="{{ role.id }}"/>
+        <div class="box-body">
+            <fieldset>
+                <legend>
+                    <h4>角色信息</h4>
+                </legend>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">名称</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" name="name" type="text"/>
+                    </div>
                 </div>
-            </div>
 
-              <div class="form-group has-feedback">
-                <label class="col-sm-2 control-label">权限</label>
-                <div class="col-sm-8">
-                    {% for item in menu_list %}
-        <table>
+                <div class="form-group has-feedback">
+                    <label class="col-sm-2 control-label">权限</label>
+                    <div class="col-sm-8">
+                        {% for item in menu_list %}
+                        <table>
 
-            <tr >
-         <label class="checkbox-inline">
-        <input value="{{ item.id }}" type="checkbox" name="checked"/>{{ item.name }}
-          </label>
-            </tr>
+                            <tr>
+                                <label class="checkbox-inline">
+                                    <input value="{{ item.id }}" type="checkbox" name="checked"/>{{ item.name }}
+                                </label>
+                            </tr>
 
-        </table>
-                    {% endfor %}
+                        </table>
+                        {% endfor %}
+                    </div>
                 </div>
+            </fieldset>
+
+
+        </div>
+        <div class="box-footer ">
+            <div class="row span7 text-center ">
+                <input type="submit" value="提交">
             </div>
-          </fieldset>
+        </div>
 
-
-		</div>
-		<div class="box-footer ">
-			<div class="row span7 text-center ">
-              <input type="submit" value="提交" >
-			</div>
-		</div>
-
-	</form>
+    </form>
 </div>
 
 {% endblock %}
 
 {% block JS %}
 {{ block.super }}
-<script src="{% static 'users/plugins/combo-select/jquery.combo.select.js' %}"></script>
-<script src="{% static 'users/bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
-
-<script type="text/javascript">
-
-
-</script>
 
 {% endblock %}

@@ -3,31 +3,20 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>华通系统运维部</title>
-  <!-- Tell the browser to be responsive to screen width
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">-->
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{% static 'users/bootstrap/css/bootstrap.min.css' %}">
-  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="{% static 'users/dist/css/AdminLTE.min.css' %}">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{% static 'users/plugins/iCheck/square/blue.css' %}">
-
-  <link rel="stylesheet" href="{% static 'users/dist/css/myself.css' %}">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js' %}"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js' %}"></script>
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-      华通系统运维部
+<div class="login-box container">
+  <div class="text-center">
+    <h2>华通系统运维部</h2>
   </div>
     {% block user-content %}
 
@@ -36,10 +25,10 @@
     <!-- /.login-box -->
 
 
-<!-- jQuery 2.2.3 -->
-<script src="{% static 'users/plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{% static 'users/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- jQuery 3.3.1 -->
+<script type="text/javascript" src="/static/lib/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script type="text/javascript" src="/static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 {% block script %}
 
