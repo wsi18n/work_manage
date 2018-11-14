@@ -1,0 +1,18 @@
+[
+    {
+        "model": "rbac.menu",
+        "pk": 1,
+        "fields": {
+            "name": "setting",
+            "url": "/system/"
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 2,
+        "fields": {
+            "name": "workbench",
+            "url": "/workbench/"
+        }
+    }
+]

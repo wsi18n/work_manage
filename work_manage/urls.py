@@ -23,5 +23,7 @@ urlpatterns = [
     path('login/',users.LoginView.as_view(),name='login'),
     path('logout/',users.LogoutView.as_view(),name='logout'),
     path('',rbacview.index),
-    path('system/',include('rbac.urls',namespace='rbac')),
+    path('system/',include('rbac.urls')),
+    path('workbench/', include('workbench.urls')),
+
 ]

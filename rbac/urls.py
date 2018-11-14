@@ -4,6 +4,8 @@ app_name = 'rbac'
 
 
 urlpatterns = [
+    path('', MenuView.as_view()),
+
     #权限菜单
     path('menu/',MenuView.as_view(), name="menu-list"),
     path('menu/add/',MenuAdd.as_view(),name='menu-add'),
