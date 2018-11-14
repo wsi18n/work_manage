@@ -5,7 +5,7 @@ app_name = 'workbench'
 
 urlpatterns = [
     path('', views.index, name = "index"),
-    path('user_config/', views.user_config, name = "user_config"),
+    path('user_config/', views.UserConfig.as_view(), name = "user_config"),
     path('message/', views.message, name = "message"),
     path('order/created/', views.Order.created, name = "Order.created"),
     path('order/received/', views.Order.received, name = "Order.received"),

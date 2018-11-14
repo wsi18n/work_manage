@@ -1,5 +1,8 @@
 from django.shortcuts import render, reverse
 from rbac import models
+from work_manage.admin.base import View
+import logging
+logger = logging.getLogger(__name__)
 
 def _render(request, template, context={}):
     context.update({
@@ -24,9 +27,23 @@ def index(request):
     return _render(request, 'workbench/index.html')
 
 
-def user_config(request):
-    # user = request.user
-    return _render(request, 'workbench/user_config.html')
+class UserConfig(View):
+    @staticmethod
+    def get(request):
+        return _render(request, 'workbench/user_config.html')
+
+    @staticmethod
+    def post(request):
+        user = request.user
+        if request.POST['name']:
+            user.name =  request.POST['name']
+        user.gender =  request.POST['gender']
+        if request.POST['birthday']:
+            user.birthday = request.POST['birthday']
+        user.email =  request.POST['e-mail']
+        user.mobile =  request.POST['mobile']
+        user.save()
+        return _render(request, 'workbench/user_config.html',{'msg':"保存成功"})
 
 
 def message(request):

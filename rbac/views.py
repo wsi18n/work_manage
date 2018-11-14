@@ -9,8 +9,8 @@ import json
 
 class LoginRequiredMixin(object):
     @classmethod
-    def as_view(cls, **init_kwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**init_kwargs)
+    def as_view(cls, *args, **kwargs):
+        view = super(LoginRequiredMixin, cls).as_view(*args, **kwargs)
         return login_required(view, login_url='/login/')
 
 
