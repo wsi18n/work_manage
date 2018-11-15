@@ -1,0 +1,95 @@
+{% extends "layout/layout.html" %}
+{% block title %} {% endblock  %}
+{% block CSS %}
+{{ block.super }}
+<style>
+    .block {
+        display: block;
+        padding: 10px 5px;
+        margin-bottom: 15px;
+        min-height: 200px;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+
+    .img-head {
+        height: 150px;
+        width: 150px;
+    }
+
+    .link:hover {
+        box-shadow: 0 0 5px rgba(0, 120, 255, 0.6);
+        cursor: pointer;
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="page-header">
+        <h3>{{ plan.name}}</h3>
+    </div>
+
+    <div class="col-xs-4 col-lg-3 ">
+        <div class="block ">
+            <div class="text-center" >
+                <img src="{{ plan.img_url }}" onerror="this.src='/static/media/img/plan-default.png'"
+                     class=" img-thumbnail img-head"/>
+                <h4>{{ plan.name}}</h4>
+            </div>
+
+            <hr>
+            <div class="col-xs-12">发布者：{{ plan.creator}}</div>
+            <div class="col-xs-12">发布日期：{{ plan.pub_date|date:"Y-m-d"}}</div>
+            <div class="col-xs-12">计划完成日期：{{ plan.planned_completion_date|date:"Y-m-d"}}</div>
+
+
+        </div>
+    </div>
+    <div class="col-xs-8 col-lg-9 ">
+        <div class="block">
+            <h4>参与人员</h4>
+        </div>
+    </div>
+    <div class="col-xs-12 ">
+        <div class="block">
+            <h4>计划描述</h4>
+        </div>
+    </div>
+        <div class="col-xs-12 ">
+
+    <h4>附件</h4>
+        </div>
+
+</div>
+<div class="row">
+    <div class="page-header">
+        <h3>包括的子计划</h3>
+    </div>
+
+    {% for plan in sub_plan_list %}
+
+    <div class="col-xs-4 col-lg-3 ">
+    <div class="block  link" onclick="window.location.href = '{% url 'workbench:Plan.Detail' plan.id %}'">
+            <div class="text-center " >
+                <img src="{{ plan.img_url }}" onerror="this.src='/static/media/img/plan-default.png'"
+                     class=" img-thumbnail img-head"/>
+                <h4>{{ plan.name}}</h4>
+            </div>
+
+            <hr>
+            <div class="col-xs-12">发布者：{{ plan.creator}}</div>
+            <div class="col-xs-12">发布日期：{{ plan.pub_date|date:"Y-m-d"}}</div>
+            <div class="col-xs-12">计划完成日期：{{ plan.planned_completion_date|date:"Y-m-d"}}</div>
+
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

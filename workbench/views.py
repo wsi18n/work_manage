@@ -1,22 +1,24 @@
-from django.shortcuts import render, reverse
-from rbac import models
+from django.shortcuts import render, reverse, get_object_or_404
+from rbac.models import Menu
+from . import models
 from work_manage.admin.base import View
 import logging
 logger = logging.getLogger(__name__)
+#logger.error("")
 
 def _render(request, template, context={}):
     context.update({
-        'top_menu': models.Menu.objects.filter(parent__isnull=True).values('name', 'url'),
+        'top_menu': Menu.objects.filter(parent__isnull=True).values('name', 'url'),
         'left_menu': {
-            '个人中心': reverse('workbench:user_config'),
-            '我的消息': reverse('workbench:message'),
+            '个人中心': reverse('workbench:UserConfig'),
+            '我的消息': reverse('workbench:Message'),
             '工作计划': {
-                '计划总览': reverse('workbench:Order.overview'),
-                '我创建的计划': reverse('workbench:Order.created'),
-                '我收到的计划': reverse('workbench:Order.received'),
-                '我审批的计划': reverse('workbench:Order.examine'),
+                '计划总览': reverse('workbench:Plan.Overview'),
+                '创建的计划': reverse('workbench:Plan.Created'),
+                '收到的计划': reverse('workbench:Plan.Received'),
+                '审批的计划': reverse('workbench:Plan.Examine'),
             },
-            '我的文档': reverse('workbench:doc'),
+            '我的文档': reverse('workbench:Doc'),
         }
     })
     return render(request, template, context)
@@ -46,27 +48,44 @@ class UserConfig(View):
         return _render(request, 'workbench/user_config.html',{'msg':"保存成功"})
 
 
-def message(request):
-    return _render(request, 'workbench/index.html')
-
-
-class Order:
-    @classmethod
-    def created(cls, request):
-        return _render(request, 'workbench/index.html')
-
-    @classmethod
-    def received(cls, request):
-        return _render(request, 'workbench/index.html')
-
-    @classmethod
-    def examine(cls, request):
-        return _render(request, 'workbench/index.html')
-
-    @classmethod
-    def overview(cls, request):
+class Message(View):
+    @staticmethod
+    def get(request):
         return _render(request, 'workbench/index.html')
 
 
-def doc(request):
-    return _render(request, 'workbench/index.html')
+class Plan:
+    class Detail(View):
+        @staticmethod
+        def get(request,id):
+            plan = get_object_or_404(models.Plan, pk= id)
+            sub_plan_list = models.Plan.objects.filter(parent=plan).order_by('id')
+
+            return _render(request, 'workbench/created_plan_detail.html',{'plan':plan,'sub_plan_list':sub_plan_list})
+
+
+    class Created(View):
+        @staticmethod
+        def get(request):
+            plan_list = models.Plan.objects.filter(creator=request.user,parent__isnull=True).order_by('id')
+            return _render(request, 'workbench/created_plan_list.html',{'plan_list':plan_list})
+    class Examine(View):
+        @staticmethod
+        def get(request):
+            return _render(request, 'workbench/index.html')
+    class Received(View):
+        @staticmethod
+        def get(request):
+            return _render(request, 'workbench/index.html')
+
+
+    class Overview(View):
+        @staticmethod
+        def get(request):
+            return _render(request, 'workbench/index.html')
+
+
+class Doc(View):
+    @staticmethod
+    def get(request):
+        return _render(request, 'workbench/index.html')
