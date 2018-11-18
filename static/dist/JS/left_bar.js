@@ -1,4 +1,4 @@
-$('.list-group-item').on('click', function () {
+$('#left-bar .list-group-item').on('click', function () {
     if (typeof($(this).attr("href")) !== "undefined") {
         window.location.href = $(this).attr("href")
     }
@@ -13,6 +13,6 @@ $('.list-group-item').on('click', function () {
         $(this).next('.sub-list').slideDown(250);
     }
 })
-$sub_lists = $('.list-group-item.active').parents('li.sub-list');
+$sub_lists = $('#left-bar .list-group-item.active').parents('li.sub-list');
 $sub_lists.show()
 $sub_lists.prev('li').addClass('active');
