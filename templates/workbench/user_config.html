@@ -1,32 +1,51 @@
-{% extends "layout/layout.html" %}
-{% block title %} 个人中心{% endblock  %}
+{% extends "./base.html" %}
+{% block title %} 个人中心 - {{ block.super }}{% endblock  %}
 
 {% block CSS %}
 {{ block.super }}
-<link href="/static/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <style>
-    .block {
-        display: block;
-        padding: 10px 5px;
-        margin-bottom: 15px;
-        min-height: 200px;
-        border: 1px #D3D3D3 solid;
-        border-radius: 5px;
-        background: white;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        position: relative;
-        float: left;
-        width: 100%;
-    }
-
     .img-head {
         height: 100px;
         width: 100px;
     }
-
 </style>
 {% endblock %}
+
 {% block content %}
+
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <form method="post" >
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">修改密码</h4>
+          </div>
+          <div class="modal-body">
+               {% csrf_token %}
+              <div class="form-group">
+                <label for="old-pwd" class="control-label">原密码</label>
+                  <input class="form-control" name="old_pwd" id="old-pwd" type="password" autocomplete="new-password"/>
+              </div>
+              <div class="form-group">
+                <label for="new-pwd" class="control-label">新密码</label>
+                  <input class="form-control" name="new_pwd" id="new-pwd" type="password"
+                        placeholder="6位以上新密码" autocomplete="new-password"/>
+              </div>
+              <div class="form-group">
+                <label for="re-pwd" class="control-label">重复密码</label>
+                  <input class="form-control" name="re_pwd" id="re-pwd" type="password"
+                         placeholder="请重复密码" autocomplete="new-password"/>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary">确认</button>
+          </div>
+        </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div class="page-header">
     <h3>个人中心</h3>
 </div>
@@ -35,11 +54,11 @@
         <div class="text-center"><img src="/static/media/img/user-default.png"
                                       class="img-circle img-thumbnail img-head"/>
         </div>
-        <div class="text-center">{{ user.name }} - {{ user.post|default:'岗位' }}</div>
+        <div class="text-center">{{ user }} - {{ user.post|default:'岗位' }}</div>
         <hr>
-        <div class="col-xs-10 col-xs-offset-2">姓名 : {{ user.name }}</div>
-        <div class="col-xs-10 col-xs-offset-2">邮箱 : {{ user.email }}</div>
-        <div class="col-xs-10 col-xs-offset-2">电话 : {{ user.mobile }}</div>
+        <div class="col-xs-10 col-xs-offset-2">姓名 : {{ user.alias|default:'' }}</div>
+        <div class="col-xs-10 col-xs-offset-2">邮箱 : {{ user.email|default:'' }}</div>
+        <div class="col-xs-10 col-xs-offset-2">电话 : {{ user.mobile|default:'' }}</div>
 
 
     </div>
@@ -79,13 +98,13 @@
                 <div class="form-group">
                     <label for="name" class="col-xs-3 control-label">姓名</label>
                     <div class="col-xs-9">
-                        <input class="form-control" name="name" value="{{ user.name }}">
+                        <input class="form-control" name="name" value="{{ user.alias|default:'' }}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="birthday" class="col-xs-3 control-label">生日</label>
                     <div class="col-xs-9" >
-                        <input class="form-control" id="birthday" name="birthday" value="{{ user.birthday|default:'' }}"
+                        <input class="form-control" id="birthday" name="birthday" value="{{ user.birthday|date:'Y-m-d' }}"
                         autocomplete="off">
                     </div>
                 </div>
@@ -138,18 +157,14 @@
                         <input class="form-control" id="joined-date" value="{{ user.joined_date|default:'' }}" readonly>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="superior" class="col-xs-3 control-label">上级主管</label>
-                    <div class="col-xs-9">
-                        <input class="form-control" id="superior" value="{{ user.superior|default:'' }}" readonly>
-                    </div>
-                </div>
+
             </div>
             <hr>
             <div class="col-xs-12">
                 <div class="pull-right">
-                    <button type="button" class="btn btn-default" onclick="window.location.reload()">reset</button>
-                    <button type="submit" class="btn btn-primary">save</button>
+                    <button type="button" class="btn btn-default" onclick="window.location.reload()">取消</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">修改密码</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
                 </div>
             </div>
         </form>
@@ -158,8 +173,6 @@
 {% endblock  %}
 {% block JS %}
 {{ block.super }}
-<script type="text/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="/static/lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
     $('#birthday').datetimepicker({
         language:  'zh-CN',

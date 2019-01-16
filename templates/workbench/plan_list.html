@@ -1,0 +1,129 @@
+{% extends "./base.html" %}
+{% load select %}
+
+{% block title %} 工作任务列表 - {{ block.super }}{% endblock  %}
+
+{% block JS %}{{ block.super }}
+<script>
+    $("#head").select2();
+    $("#creator").select2();
+    $('#start_time, #end_time').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        todayBtn: true,
+        startView: 2, //day
+        minView: 2,
+    });
+    $('button.reset').on('click',function () {
+        $form = $(this).parents('form');
+        $form.find('input').val('').removeAttr("checked");
+        $form.find('select').val('').trigger("change");
+
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h3>任务列表
+        <a href="{% url 'workbench:Plan.New' '0' %}" class="pull-right btn btn-primary">新建</a>
+
+    </h3>
+</div>
+
+<div class="row" id="toolbar">
+    <form class="form-inline" method="get">
+        <div class="form-group">
+            <label for="name">任务名</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{request.GET.name}}" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="creator">创建者</label>
+            <select class="form-control"  id="creator" name="creator" >
+                <option> </option>
+                {% generate_options all_users request.GET.creator %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="head">负责人</label>
+            <select class="form-control"  id="head" name="head">
+                <option> </option>
+                {% generate_options all_users request.GET.head %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="state">任务状态</label>
+            <select class="form-control"  id="state" name="state">
+                <option> </option>
+                {% generate_options all_plan_state request.GET.state %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="type">任务类型</label>
+            <select class="form-control"  id="type" name="type">
+                <option> </option>
+                {% generate_options all_plan_type request.GET.type %}
+            </select>
+        </div>
+        <!--
+        <div class="form-group">
+            <label for="start_time">任务时间 </label>
+            <input type="text" class="form-control"  id="start_time" name="start_time" value="{{request.GET.start_time}}"
+                   autocomplete="off">
+            -
+            <input type="text" class="form-control"  id="end_time" name="end_time" value="{{request.GET.end_time}}"
+                   autocomplete="off">
+        </div>
+        -->
+        <div class="form-group">
+            <label>
+              <input name="all" type="checkbox" {% if request.GET.all %}checked{% endif %}> 不显示子任务
+            </label>
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default reset">清空</button>
+            <button type="submit" class="btn btn-primary ">查找</button>
+        </div>
+    </form>
+</div>
+<hr>
+
+<div class="row" >
+    <table class="table table-striped">
+
+        <thead>
+        <tr>
+            <th>任务名</th>
+            <th>发布者</th>
+            <th>负责人</th>
+            <th>任务状态</th>
+            <th>任务类型</th>
+            <th>发布日期</th>
+            <th>预计完成日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+{% for plan in plan_list %}
+            <tr>
+                <td>{{ plan.name}}</td>
+                <td>{{ plan.creator}}</td>
+                <td>{{ plan.head}}</td>
+                <td>{{ plan.state|choices_trans:"PLAN_STATE"}}</td>
+                <td>{{ plan.plan_type|default:"-"}}</td>
+                <td>{{ plan.pub_date|date:"Y-m-d"}}</td>
+                <td>{{ plan.planned_completion_date|date:"Y-m-d"}}</td>
+                <td>
+                    <a href="{% url 'workbench:Plan.Detail' plan.id %}" class="btn btn-sm btn-default" title="查看"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    {% if plan.creator == user %}
+                    <a href="{% url 'workbench:Plan.Edit' plan.id %}" class="btn btn-sm btn-default" title="编辑"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="{% url 'workbench:Plan.Delete' plan.id %}" class="btn btn-sm btn-danger" title="删除"><span class="glyphicon glyphicon-remove"></span></a>
+                    {% endif %}
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

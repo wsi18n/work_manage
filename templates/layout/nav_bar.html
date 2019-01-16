@@ -1,10 +1,10 @@
 <nav class="navbar navbar-inverse navbar-static-top " id="top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/" style="padding: 10px">
+      <a class="navbar-brand" href="{% url 'rbac:index' %}" style="padding: 10px">
         <img alt="Watone" src="/static/media/img/logo-sm.png">
       </a>
-      <a href="/" class="navbar-brand">华通云数据 </a>
+      <a href="{% url 'rbac:index' %}" class="navbar-brand">华通云数据 </a>
     </div>
     <nav id="bs-navbar" class="collapse navbar-collapse">
 
@@ -19,7 +19,8 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'logout' %}" ><span class="glyphicon glyphicon-user"></span> logout</a></li>
+        <li><a href="#" ><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+        <li><a href="{% url 'logout' %}" ><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
       </ul>
     </nav>
   </div>

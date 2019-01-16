@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+{% load select %}
+
+{% block title %} 我的消息 - {{ block.super }}{% endblock  %}
+{% block JS %}
+{{ block.super }}
+<script>
+$('#modal').on('show.bs.modal', function (event) {
+  let button = $(event.relatedTarget) ;
+  let msg_id = button.data('msg-id') ;
+  let modal = $(this);
+  modal.find('#plan_id').val(msg_id)
+})
+</script>
+{% endblock  %}
+
+{% block content %}
+
+<div class="page-header">
+    <h3>我的消息</h3>
+</div>
+
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <form class="form-horizontal" method="post" >
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">确认</h4>
+          </div>
+          <div class="modal-body">
+               {% csrf_token %}
+              <input id="plan_id" name="id" value="" type="hidden">
+              <label for="describe" class="control-label">确认描述</label>
+              <textarea class="form-control col-xs-12" id="describe" name="describe" style="max-width: 100%"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="submit" class="btn btn-primary" >确认</button>
+          </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    {% for msg_obj in msg_list %}
+    <div class="row block">
+        <div class="col-xs-3 col-lg-2">{{ msg_obj.pub_time|date:"Y-m-d H:i"}}</div>
+        <div class="col-xs-9 col-lg-10">
+            {{ msg_obj.content}}
+            <div class="pull-right">
+                <a href="{% url 'workbench:Plan.Detail' msg_obj.plan_id %}" >查看任务</a>&emsp;&emsp;
+                <a href="#" data-toggle="modal" data-target="#modal" data-msg-id="{{msg_obj.id}}">确认</a>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+{% endblock %}

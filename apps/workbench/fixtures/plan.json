@@ -1,0 +1,17 @@
+[
+    {
+        "model": "workbench.planType",
+        "pk": 1,
+        "fields": {
+            "name": "常规"
+        }
+    },
+    {
+        "model": "workbench.planType",
+        "pk": 2,
+        "fields": {
+            "name": "DEBUG"
+        }
+    }
+
+]

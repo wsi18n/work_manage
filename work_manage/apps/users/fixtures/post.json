@@ -1,0 +1,59 @@
+[
+    {
+        "model": "users.post",
+        "pk": 1,
+        "fields": {
+            "name": "总经理",
+            "is_leader":true
+        }
+    },{
+        "model": "users.post",
+        "pk": 2,
+        "fields": {
+            "name": "副总经理",
+            "is_leader":true
+        }
+    },{
+        "model": "users.post",
+        "pk": 3,
+        "fields": {
+            "name": "总经理助理",
+            "is_leader":true
+        }
+    },{
+        "model": "users.post",
+        "pk": 4,
+        "fields": {
+            "name": "员工",
+            "is_leader":false
+        }
+    },{
+        "model": "users.post",
+        "pk": 5,
+        "fields": {
+            "name": "开发工程师",
+            "is_leader":false
+        }
+    },{
+        "model": "users.post",
+        "pk": 6,
+        "fields": {
+            "name": "系统工程师",
+            "is_leader":false
+        }
+    },{
+        "model": "users.post",
+        "pk": 7,
+        "fields": {
+            "name": "网络工程师",
+            "is_leader":false
+        }
+    },{
+        "model": "users.post",
+        "pk": 8,
+        "fields": {
+            "name": "运行工程师",
+            "is_leader":false
+        }
+    }
+]

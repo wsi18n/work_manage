@@ -1,0 +1,325 @@
+[
+    {
+        "model": "rbac.menu",
+        "pk": 1,
+        "fields": {
+            "name": "系统设置",
+            "url": "/system/"
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 2,
+        "fields": {
+            "name": "工作台",
+            "url": "/workbench/"
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 101,
+        "fields": {
+            "name": "权限管理",
+            "parent": 1
+    }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 102,
+        "fields": {
+            "name": "组织架构",
+            "parent": 1
+    }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 103,
+        "fields": {
+            "name": "用户管理",
+            "parent": 1
+    }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 104,
+        "fields": {
+            "name": "菜单展示",
+            "url": "/system/menu/display/",
+            "parent_id": 101
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 105,
+        "fields": {
+            "name": "角色展示",
+            "url": "/system/role/display/",
+            "parent_id": 101
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 106,
+        "fields": {
+            "name": "菜单增加",
+            "url": "/system/menu/add/",
+            "parent_id": 104
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 107,
+        "fields": {
+            "name": "菜单删除",
+            "url": "/system/menu/del/",
+            "parent_id": 104
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 108,
+        "fields": {
+            "name": "角色增加",
+            "url": "/system/role/add/",
+            "parent_id": 105
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 109,
+        "fields": {
+            "name": "角色删除",
+            "url": "/system/role/del/",
+            "parent_id": 105
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 110,
+        "fields": {
+            "name": "组织架构展示",
+            "url": "/system/department/display/",
+            "parent_id": 102
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 111,
+        "fields": {
+            "name": "组织架构增加",
+            "url": "/system/department/add/",
+            "parent_id": 110
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 112,
+        "fields": {
+            "name": "组织架构删除",
+            "url": "/system/department/del/",
+            "parent_id": 110
+        }
+    },
+
+
+    {
+        "model": "rbac.menu",
+        "pk": 113,
+        "fields": {
+            "name": "组织架构编辑",
+            "url": "/system/department/\\d+/edit/",
+            "parent_id": 110
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 114,
+        "fields": {
+            "name": "编辑角色",
+            "url": "/system/role/\\d+/edit/",
+            "parent_id": 105
+        }
+    },
+    
+
+    {
+        "model": "rbac.menu",
+        "pk": 115,
+        "fields": {
+            "name": "用户管理展示",
+            "url": "/system/user/display/",
+            "parent_id": 103
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 116,
+        "fields": {
+            "name": "添加用户",
+            "url": "/system/user/add/",
+            "parent_id": 115
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 117,
+        "fields": {
+            "name": "删除用户",
+            "url": "/system/user/del/",
+            "parent_id": 115
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 118,
+        "fields": {
+            "name": "编辑用户",
+            "url": "/system/user/\\d+/",
+            "parent_id": 115
+        }
+    },
+
+    {
+        "model": "rbac.menu",
+        "pk": 119,
+        "fields": {
+            "name": "职位管理",
+            "url": "/system/post/display/",
+            "parent_id": 102
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 120,
+        "fields": {
+            "name": "新增职位",
+            "url": "/system/post/add/",
+            "parent_id": 119
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 121,
+        "fields": {
+            "name": "删除职位",
+            "url": "/system/post/del/",
+            "parent_id": 119
+        }
+    },
+
+
+    {
+        "model": "rbac.menu",
+        "pk": 201,
+        "fields": {
+            "name": "个人中心",
+            "url": "/workbench/user_config/",
+            "parent_id": 2
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 202,
+        "fields": {
+            "name": "我的消息",
+            "url": "/workbench/message/",
+            "parent_id": 2
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 203,
+        "fields": {
+            "name": "工作任务",
+            "parent_id": 2
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 204,
+        "fields": {
+            "name": "任务总览",
+            "url": "/workbench/plan/overview/",
+            "parent_id": 203
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 205,
+        "fields": {
+            "name": "我的任务列表",
+            "url": "/workbench/plan/list/0/",
+            "parent_id": 203
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 206,
+        "fields": {
+            "name": "职员任务列表",
+            "url": "/workbench/plan/list/1/",
+            "parent_id": 203
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 207,
+        "fields": {
+            "name": "上传图片(富文本编辑器内)",
+            "url": "/workbench/upload/",
+            "parent_id": 205
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 208,
+        "fields": {
+            "name": "编辑任务",
+            "url": "/workbench/plan/\\d+/edit/",
+            "parent_id": 205
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 209,
+        "fields": {
+            "name": "新建任务",
+            "url": "/workbench/plan/new/\\d+/",
+            "parent_id": 205
+        }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 210,
+        "fields": {
+            "name": "任务详情",
+            "url": "/workbench/plan/\\d+/detail/",
+            "parent_id": 205
+       }
+    },
+    {
+        "model": "rbac.menu",
+        "pk": 211,
+        "fields": {
+            "name": "删除任务",
+            "url": "/workbench/plan/\\d+/delete/",
+            "parent_id": 205
+       }
+    }
+]

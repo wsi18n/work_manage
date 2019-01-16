@@ -1,0 +1,117 @@
+{% extends "./base.html" %}
+{% block title %}
+用户展示 - {{ block.super }}
+{% endblock %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header margin-bottom">
+    <ol class="breadcrumb">
+        <li><a href=""><i class="fa fa-dashboard"></i>用户展示</a></li>
+        <li class="active"><a
+                href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.name }}</a>
+        </li>
+        <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div id="devlist">
+        <div class="box box-primary" id="liebiao">
+            <div class="box-header">
+                <div class="btn-group pull-left">
+                    <a href="{% url 'rbac:user-display' %}">
+                        <button type="button" id="btnRefresh"
+                                class="btn btn-default">
+                            <i class="glyphicon glyphicon-repeat"></i>刷新
+                        </button>
+                    </a>
+                </div>
+                <div class="btn-group pull-left">&nbsp</div>
+                <div class="btn-group pull-left">
+                    <a href="{% url 'rbac:user-add' %}">
+                        <button type="button" id="btnCreate"
+                                class="btn btn-default">
+                            <i class="glyphicon glyphicon-plus"></i>新增
+                        </button>
+                    </a>
+                </div>
+                <div class="btn-group pull-left">&nbsp</div>
+            </div>
+
+            <div class="box-body">
+                <table id="dtbList" class="table">
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>岗位</th>
+                        <th>所属部门</th>
+                        <th>操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for item in user_obj %}
+                    <tr nid="{{ item.id }}">
+                        <th>{{ item.username }}</th>
+                        <th>{{ item.alias|default:'' }}</th>
+                        <th>{{ item.post }}</th>
+                        <th>{{ item.department }}</th>
+                        <th>
+                            <a href="{% url 'rbac:user-edit' item.id %}" class="btn btn-sm btn-default"
+                               title="编辑"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a class="btn btn-sm btn-danger user_delete" title="删除"><span
+                                    class="glyphicon glyphicon-remove"></span></a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <br> <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- /.content -->
+{% endblock %}
+
+{% block JS %}
+{{block.super}}
+<script>
+    $(function () {
+        user_deleteBindEvent();
+    });
+
+
+    function user_deleteBindEvent() {
+        $(".user_delete").off().on('click', function () {
+            var nid = $(this).parent().parent().attr("nid");
+            $.ajax({
+                url: "{% url 'rbac:user-del' %}",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    user_delete_id: nid,
+                },
+                success: function (arg) {
+                    if (arg.status) {
+                        alert("操作成功");
+                        window.location.reload();
+                    } else {
+                        alert(arg.msg);
+                        window.location.reload();
+                    }
+                },
+                dataType: "JSON",
+            });
+
+
+        });
+    }
+
+
+</script>
+
+{% endblock %}

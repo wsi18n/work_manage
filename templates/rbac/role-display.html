@@ -1,0 +1,114 @@
+{% extends './base.html' %}
+{% block title %}
+角色列表 - {{ block.super }}
+{% endblock %}
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header margin-bottom">
+        <ol class="breadcrumb">
+            <li><a href=""><i class="fa fa-dashboard"></i>角色管理</a></li>
+            <li class="active"><a
+                    href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.title }}</a></li>
+            <li class="active"><a href="{{ menu.url }}">{{ menu.title }}</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:role-display' %}">
+                            <button type="button" id="btnRefresh" class="btn btn-default">
+                                <i class="glyphicon glyphicon-repeat"></i>刷新
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:role-add' %}">
+                            <button type="button" id="btnCreate" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>新增
+                            </button>
+                        </a>
+
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+
+                </div>
+                <div class="box-body">
+                    <table id="dtbList" class="table" cellspacing="0" >
+                        <thead>
+                        <tr valign="middle">
+
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>操作</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for item in role %}
+                        <tr valign="middle" id="{{ item.id }}" name="{{ item.name }}">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>
+                                <a href="{% url 'rbac:role-edit' item.id %}" class="btn btn-sm btn-default" title="编辑">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+
+                                <button class="btn btn-sm btn-danger roledelete" value="&times;" title="删除">
+                                   <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block JS %}
+{{block.super}}
+
+<script>
+$(function () {
+    roledeleteBindEvent();
+})
+
+function roledeleteBindEvent() {
+    $('.roledelete').off().on('click',function () {
+        var role_del_id = $(this).parent().parent().attr('id');
+        console.log(role_del_id);
+
+        $.ajax({
+            url:"{% url 'rbac:role-delete' %}",
+            type:"POST",
+            data:{
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                "role_del_id":role_del_id,
+            },
+            success:function (arg) {
+                var data = JSON.parse(arg)
+                if(data.status){
+                    alert("操作成功");
+                    window.location.reload();
+                }else {
+                    alert("操作失败");
+                    window.location.reload();
+                }
+            },
+        })
+    })
+}
+
+</script>
+
+
+{% endblock %}

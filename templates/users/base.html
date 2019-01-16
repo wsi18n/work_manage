@@ -1,0 +1,12 @@
+{% extends "layout/layout.html" %}
+
+{% block title %}  系统设置 {% endblock  %}
+
+{% block JS %}
+{{ block.super }}
+<script>
+    window.setTimeout(function(){
+        $('.alert.msg').fadeOut(2000);
+    },5000);
+</script>
+{% endblock  %}

@@ -1,0 +1,118 @@
+{% extends './base.html' %}
+{% block title %}
+菜单管理 - {{ block.super }}
+{% endblock %}
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header margin-bottom">
+        <ol class="breadcrumb">
+            <li><a href=""><i class="fa fa-dashboard"></i>菜单管理</a></li>
+            <li class="active"><a
+                    href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.name }}</a></li>
+            <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:menu-display' %}">
+                            <button type="button" id="btnRefresh" class="btn btn-default">
+                                <i class="glyphicon glyphicon-repeat"></i>刷新
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:menu-add' %}">
+                            <button type="button" id="btnCreate" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>新增
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <!--<div class="btn-group pull-left">
+                        <button type="button" id="btnDelete" class="btn btn-default">
+                            <i class="glyphicon glyphicon-trash"></i>删除
+                        </button>
+                    </div>
+                </div>-->
+                </div>
+
+                <div class="box-body">
+                    <table id="dtbList" class="table" >
+                        <thead>
+                        <tr>
+                            <!--<th><input type="checkbox" id="checkAll"></th>-->
+                            <th>名称</th>
+                            <th>url</th>
+                            <th>父菜单</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in menu_list %}
+                                <tr nid="{{item.id }}">
+                                    <th>{{ item.name }}</th>
+                                    <th>{{ item.url }}</th>
+                                    <th>{{ item.parent }}</th>
+                                    <th><input class="btn btn-danger menudelete" type="button" value="删除"></th>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block JS %}
+{{ block.super }}
+<script>
+    $(function () {
+        menudeleteBindEvent();
+    });
+    
+    function menudeleteBindEvent() {
+        $(".menudelete").off().on('click',function () {
+            var del_id = $(this).parent().parent().attr('nid');
+
+            $.ajax({
+                url:"{% url 'rbac:menu-delete' %}",
+                type:'POST',
+                data:{
+                    csrfmiddlewaretoken:'{{ csrf_token }}',
+                    'del_id':del_id,
+                },
+                success:function (arg) {
+                    var data = JSON.parse(arg);
+                    if (data.status){
+                        alert("操作成功");
+                        window.location.reload();
+                    }else {
+                        alert("操作失败");
+                        window.location.reload();
+                    }
+                }
+
+            });
+
+        })
+    };
+    
+    
+    
+    
+    
+</script>
+{% endblock %}

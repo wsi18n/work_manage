@@ -1,3 +1,4 @@
+<!--
 <div id="left-bar">
     <ul class="list-group">
         {% for k,v in left_menu.items %}
@@ -16,6 +17,30 @@
             {% endif %}
         {% endfor %}
         
+    </ul>
+
+</div>
+-->
+
+
+<div id="left-bar">
+    <ul class="list-group">
+        {% for k in after_menu %}
+            {% if not k.url %}
+            <li class="list-group-item">{{ k.name }}<span class="glyphicon glyphicon-menu-right pull-right"></span></li>
+            <li class="sub-list" style="display: none">
+                <ul class="list-group ">
+                    {% for item in k.children %}
+                    <li class="list-group-item {% if request.path == item.url %}active{% endif %}" href="{{ item.url }}">{{ item.name }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% else %}
+
+            <li class="list-group-item {% if request.path == k.url %}active{% endif %}" href="{{ k.url }}">{{ k.name  }}</li>
+            {% endif %}
+        {% endfor %}
+
     </ul>
 
 </div>

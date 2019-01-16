@@ -14,16 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from users import views as users
-from rbac import views as rbacview
+from rbac import views as rbac
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',users.LoginView.as_view(),name='login'),
-    path('logout/',users.LogoutView.as_view(),name='logout'),
-    path('',rbacview.index),
-    path('system/',include('rbac.urls')),
+    path('', users.Index.as_view(), name='index'),
+    path('login/', users.Login.as_view(), name='login'),
+    path('logout/', users.Logout.as_view(), name='logout'),
+    path('system/', include('rbac.urls', namespace='rbac')),
     path('workbench/', include('workbench.urls')),
 
 ]

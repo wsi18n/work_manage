@@ -1,0 +1,133 @@
+{% extends "./base.html" %}
+{% load select %}
+
+{% block title %} 任务总览 - {{ block.super }}{% endblock  %}
+{% block CSS %}{{ block.super }}
+
+{% endblock  %}
+{% block JS %}{{ block.super }}
+<script type="application/javascript" src="/static/lib/echarts-4.2/echarts.min.js"></script>
+<script>
+let now = new Date();
+let daytime = 24*60*60*1000;
+let date = [];
+let data1 = [];
+let data2 = [];
+let data3 = [5];
+for(let i=0;i<31;i++){
+    date.unshift(now.getDate());
+    data1.push(1+parseInt(3*Math.random()));
+    data2.push(1+parseInt(3*Math.random()));
+    data3.push(data3[i]+parseInt(2*Math.random()));
+
+    now.setTime(now.getTime()-daytime);
+
+}
+    // 指定图表的配置项和数据
+option = {
+    title: {
+        text: 'a部门任务统计（示例）'
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data:['进行中','已完成','挂起',]
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : date
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+
+        {
+            name:'挂起',
+            type:'line',
+            stack: 1,
+            itemStyle: {
+                color:"#000"
+            },
+            lineStyle: {
+                color:"#000"
+            },
+            areaStyle: {
+                color:"#000"
+            },
+            data:data1
+        },
+        {
+            name:'进行中',
+            type:'line',
+            stack: 1,
+            itemStyle: {
+                color:"#ff5"
+            },
+            areaStyle: {
+                color:"#ff5"
+            },
+            lineStyle: {
+                color:"#ff5"
+            },
+            data:data2
+        },
+        {
+            name:'已完成',
+            type:'line',
+            stack: 1,
+            itemStyle:{
+                color:"#afa"
+            },
+            lineStyle:{
+                color:"#afa"
+            },
+            areaStyle:{
+                color:"#afa"
+            },
+            data:data3
+        },
+
+    ]
+};
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    var myChart = echarts.init(document.getElementById('main'));
+    myChart.setOption(option);
+</script>
+{% endblock  %}
+
+{% block content %}
+<div class="page-header">
+    <h3>任务总览    </h3>
+</div>
+
+<h4>正在施工中...</h4>
+<h4>coding...</h4>
+<div id="main" style="height:400px;" class="row"></div>
+
+{% endblock %}

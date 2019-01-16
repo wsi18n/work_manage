@@ -1,0 +1,88 @@
+{% extends './base.html' %}
+{% block title %}
+部门列表 - {{ block.super }}
+{% endblock %}
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header margin-bottom">
+        <ol class="breadcrumb">
+            <li><a href=""><i class="fa fa-dashboard"></i>组织架构</a></li>
+            <li class="active"><a
+                    href="{{ menu.parent.parent.url }}">{{ menu.parent.parent.name }}</a></li>
+            <li class="active"><a href="{{ menu.url }}">{{ menu.name }}</a></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:department-display' %}">
+                            <button type="button" id="btnRefresh" class="btn btn-default">
+                                <i class="glyphicon glyphicon-repeat"></i>刷新
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <a href="{% url 'rbac:department-add' %}">
+                            <button type="button" id="btnCreate" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>新增
+                            </button>
+                        </a>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <!--<div class="btn-group pull-left">
+                        <button type="button" id="btnDelete" class="btn btn-default">
+                            <i class="glyphicon glyphicon-trash"></i>删除
+                        </button>
+                    </div>
+                </div>-->
+                </div>
+
+                <div class="box-body">
+                    <table id="dtbList" class="table">
+                        <thead>
+                        <tr>
+                            <!--<th><input type="checkbox" id="checkAll"></th>-->
+                            <th>名称</th>
+
+                            <th>父组织名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        {% for item in department_obj %}
+                        <tr nid={{ item.id }} local_name={{item.name}}>
+                            <th>{{ item.name }}</th>
+
+                            <th>{{ item.parent }}</th>
+                            <th>
+                                <form method="post" class="from-inline" action="{% url 'rbac:department-delete' %}">
+
+                                    <input type="text" name="department_id" value="{{ item.id }}" style="display: none">
+                                    <a href="{% url 'rbac:department-edit' item.id %}" class="btn btn-info department_edit">编辑</a>
+                                    {% csrf_token %}
+                                    <input class="btn btn-danger department_delete" type="submit" value="删除">
+                                </form>
+                            </th>
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}
+
+

@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -27,9 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
-
+sys.path.insert(0,os.path.join(BASE_DIR,"apps"))
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +38,6 @@ INSTALLED_APPS = [
     'users',
     'rbac',
     'workbench',
-    #'',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +48,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'rbac.middleware.rbacmiddleware.RbacMiddleWare',  # 注册rbac中自己写的中间件
     'rbac.middleware.RbacMiddleware',
 ]
 
@@ -60,7 +56,7 @@ ROOT_URLCONF = 'work_manage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,23 +65,35 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                # 自定义 template tags
+                'select': 'templatetags.select',
+
+            }
+
         },
     },
 ]
 
-WSGI_APPLICATION = 'work_manage.wsgi.application'
+# django message framework
+# https://docs.djangoproject.com/en/2.1/ref/contrib/messages/#message-tags
+from django.contrib.messages import constants as message_constants
 
+MESSAGE_TAGS = {
+    message_constants.ERROR: 'danger'
+}
+
+WSGI_APPLICATION = 'work_manage.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -105,20 +113,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -127,16 +133,30 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-AUTH_USER_MODEL = 'users.UserProfile'
 
 import re
+
+# 自定义的用户表
+AUTH_USER_MODEL = "users.UserProfile"
+
 # 权限控制URL白名单
-SAFE_URL = [r'^/$',
-            '/login/',
-            '/logout',
-            '/admin/',
-            ]
+SAFE_URL = [
+    '^/$',
+    '/login/',
+    '/logout/',
+    '/admin'
+]
 
+LOGIN_URL = '/login/'
 
-
-from .local_settings import *
+try:
+    from .local_settings import *
+except(ImportError, ImportWarning) as a:
+    print("\033[44;37m ##################################### \033[0m")
+    print("\033[44;37m                                       \033[0m")
+    print("\033[44;37m       No local settings exist         \033[0m")
+    print("\033[44;37m     path:local/local_settings.py      \033[0m")
+    print("\033[44;37m    if you want to custom settings     \033[0m")
+    print("\033[44;37m create local_settings.py and config it\033[0m")
+    print("\033[44;37m                                       \033[0m")
+    print("\033[44;37m ##################################### \033[0m")

@@ -1,0 +1,121 @@
+{% extends "./base.html" %}
+{% load select %}
+{% block title %} 用户编辑 - {{ block.super }}{% endblock  %}
+{% block JS %}
+{{ block.super }}
+<script type="application/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="application/javascript" src="/static/lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+    $('#birthday,#joined_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        startView: 4, //year
+        minView: 2,  //day
+    });
+</script>
+{% endblock %}
+{% block CSS %}
+{{ block.super }}
+<link href="/static/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h3>用户编辑</h3>
+</div>
+
+<div class="row">
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        <div class="col-xs-12">
+            <h4>基本信息</h4>
+            <hr>
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-xs-1 control-label">用户名</label>
+            <div class="col-xs-5">
+                <input class="form-control" name="username" value="{{ user_obj.username }}" readonly>
+            </div>
+            <label for="name" class="col-xs-1 control-label">姓名</label>
+            <div class="col-xs-5">
+                <input class="form-control" name="name" value="{{ user_obj.alias|default:'' }}" >
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="gender" class="col-xs-1 control-label">性别</label>
+            <div class="col-xs-5">
+                <select class="form-control" name="gender">
+                    {% generate_options user_obj.GENDER user_obj.gender %}
+                </select>
+            </div>
+            <label for="birthday" class="col-xs-1 control-label">生日</label>
+            <div class="col-xs-5">
+                <input class="form-control" id="birthday" name="birthday" value="{{ user_obj.birthday|date:'Y-m-d' }}"
+                       autocomplete="off">
+            </div>
+        </div>
+
+
+<div class="col-xs-12">
+    <h4>联系方式</h4>
+    <hr>
+</div>
+<div class="form-group">
+    <label for="e-mail" class="col-xs-1 control-label">e-mail</label>
+    <div class="col-xs-5">
+        <input class="form-control" name="e-mail" value="{{ user_obj.email|default:'' }}">
+    </div>
+    <label for="mobile" class="col-xs-1 control-label">电话</label>
+    <div class="col-xs-5">
+        <input class="form-control" name="mobile" value="{{ user_obj.mobile|default:'' }}">
+    </div>
+</div>
+<div class="col-xs-12">
+    <h4>其他信息</h4>
+    <hr>
+</div>
+
+<div class="form-group">
+    <label for="department" class="col-xs-1 control-label">部门</label>
+    <div class="col-xs-5">
+        <select class="form-control" name="department">
+            <option></option>
+            {% generate_options all_department user_obj.department.id %}
+        </select>
+
+    </div>
+
+    <label for="post" class="col-xs-1 control-label">岗位</label>
+    <div class="col-xs-5">
+        <select class="form-control" name="post">
+            <option></option>
+            {% generate_options all_post user_obj.post.id %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label for="joined_date" class="col-xs-1 control-label">入职日期</label>
+    <div class="col-xs-5">
+        <input class="form-control" id="joined_date" name="joined_date" value="{{ user_obj.joined_date|date:'Y-m-d' }}"
+                       autocomplete="off">
+    </div>
+
+</div>
+
+<hr>
+<div class="col-xs-12">
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" onclick="window.location.reload()">reset</button>
+        <button type="submit" class="btn btn-primary">save</button>
+    </div>
+</div>
+</form>
+
+</div>
+{% endblock  %}
+

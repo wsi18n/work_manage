@@ -1,0 +1,64 @@
+{% extends "layout/layout.html" %}
+
+{% load select %}
+
+{% block title %} 工作台{% endblock  %}
+
+{% block JS %}
+{{ block.super }}
+<script type="application/javascript" src="/static/lib/select2-4.0.5/js/select2.min.js"></script>
+<script type="application/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="application/javascript" src="/static/lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script>
+    $('.list-group-item[href="{% url "workbench:Message" %}"]')
+        .append('<span class="badge">{{ msg_count}}</span>')
+    window.setTimeout(function(){
+        $('.alert.msg').fadeOut(2000);
+    },5000);
+</script>
+{% endblock  %}
+
+{% block CSS %}
+{{ block.super }}
+<link href="/static/lib/select2-4.0.5/css/select2.min.css" rel="stylesheet" media="screen">
+<link href="/static/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<style>
+    .block {
+        display: block;
+        padding: 10px 5px;
+        margin-bottom: 15px;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        float: left;
+        width: 100%;
+        color: #333;
+    }
+
+    a .block:hover {
+        box-shadow: 0 0 5px rgba(0, 120, 255, 0.6);
+        cursor: pointer;
+        color: #333;
+
+    }
+
+    /* cover bootstrap */
+    .form-inline .form-group{
+        padding-bottom: 3px;
+    }
+
+    /* cover select2 */
+    .select2-container .select2-selection--single {
+        height: 34px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 30px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 30px;
+    }
+</style>
+{% endblock %}

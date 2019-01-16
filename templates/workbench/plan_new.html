@@ -1,0 +1,98 @@
+{% extends "./base.html" %}
+{% load  select %}
+
+{% block title %}新建任务 - {{ block.super }} {% endblock  %}
+
+{% block JS %}{{ block.super }}
+<script type="application/javascript" src="/static/lib/ckeditor-4.11.1-full/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace("description");
+    $("#related_user").select2();
+    $("#head").select2();
+    $("#approver").select2();
+    $('#planned_completion_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        todayBtn: true,
+        startView: 2, //day
+        minView: 2,
+    });
+    $("#file_btn").on('focus click',function () {
+        $("#file").click()
+    });
+    $("#file").on('change',function () {
+        $("#file_btn").val($(this).val())
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="page-header">
+        <h3>新建任务</h3>
+    </div>
+    <form class="form-horizontal" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name" class="col-xs-1 control-label">名称</label>
+                <div class="col-xs-5">
+                    <input class="form-control" id="name" name="name"  required>
+                </div>
+                <label for="creator" class="col-xs-1 control-label">创建者</label>
+                <div class="col-xs-5">
+                    <input class="form-control" id="creator"  value="{{ user }}" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="head" class="col-xs-1 control-label">负责人</label>
+                <div class="col-xs-5">
+                   <select class="form-control" style="width: 100%" id="head" name="head">
+                       {% generate_options all_users user.id %}
+                    </select>
+                </div>
+                <label for="related_user" class="col-xs-1 control-label">参与人员</label>
+                <div class="col-xs-5">
+                    <select class="form-control" style="width: 100%" id="related_user" name="related_user[]" multiple="multiple">
+                        {% generate_options all_users %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-xs-1 control-label">任务类型</label>
+                <div class="col-xs-5">
+                    <select class="form-control" id="type" name="type" >
+                        {% generate_options all_plan_type  %}
+                    </select>
+                </div>
+                <label for="state" class="col-xs-1 control-label">任务状态</label>
+                <div class="col-xs-5">
+                    <select class="form-control"  id="state" name="state" >
+                        <option value="1">进行中</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="file_btn" class="col-xs-1 control-label">附件</label>
+                <div class="col-xs-5">
+                    <input class=" form-control" id="file_btn" value="{{ plan.attachment_set.all.0.file}}" autocomplete="off"/>
+                    <input class=" hide" id="file" name="file" type="file"/>
+                </div>
+                <label for="planned_completion_date" class="col-xs-1 control-label">预计完成日期</label>
+                <div class="col-xs-5">
+                    <input class="form-control" id="planned_completion_date" name="planned_completion_date" autocomplete="off" >
+                </div>
+            </div>
+        <div class="col-xs-12">
+            <label for="description">描述</label>
+            <textarea class="form-control" id="description" name="description"></textarea>
+
+        </div>
+        <div class="col-xs-12">
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET / HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET / HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/index.html" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET / HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [error] 88914#0: *239 open() "/usr/share/nginx/htmllast" failed (2: No such file or directory), client: 172.31.80.1, server: localhost, request: "GET / HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/favicon.ico" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/favicon.ico" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [crit] 88914#0: *239 stat() "/root/vue_work_manage/index/dist/index.html" failed (13: Permission denied), client: 172.31.80.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "172.31.80.100"
+2018/12/11 13:52:07 [error] 88914#0: *239 open() "/usr/share/nginx/htmllast" failed (2: No such file or directory), client: 172.31.80.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "172.31.80.100"
